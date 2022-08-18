@@ -1,11 +1,6 @@
 /* eslint-disable no-console */
 import { Context } from '@actions/github/lib/context';
-import {
-  BackportResponse,
-  backportRun,
-  ConfigFileOptions,
-  UnhandledErrorResult,
-} from 'backport';
+import { BackportResponse, backportRun, UnhandledErrorResult } from 'backport';
 
 export async function run({
   context,
@@ -38,12 +33,6 @@ export async function run({
   const assignees = [pullRequest.user.login];
 
   console.log({
-    apiUrl: context.apiUrl,
-    graphqlUrl: context.graphqlUrl,
-    serverUrl: context.serverUrl,
-  });
-
-  console.log({
     assignees,
     branchLabelMapping,
     pullNumber,
@@ -51,26 +40,22 @@ export async function run({
     repoForkOwner,
   });
 
-  const options: ConfigFileOptions = {
-    gitHostname: context.serverUrl.replace(/^https{0,1}:\/\//, ''),
-    accessToken: inputs.accessToken,
-    assignees,
-    branchLabelMapping,
-    githubActionRunId: runId,
-    interactive: false,
-    publishStatusCommentOnFailure: true,
-    pullNumber,
-    repoForkOwner,
-    repoName: repo.repo,
-    repoOwner: repo.owner,
-    githubApiBaseUrlV3: context.apiUrl,
-    githubApiBaseUrlV4: context.graphqlUrl,
-  };
-
-  console.log(options);
-
   const result = await backportRun({
-    options,
+    options: {
+      gitHostname: context.serverUrl.replace(/^https{0,1}:\/\//, ''),
+      accessToken: inputs.accessToken,
+      assignees,
+      branchLabelMapping,
+      githubActionRunId: runId,
+      interactive: false,
+      publishStatusCommentOnFailure: true,
+      pullNumber,
+      repoForkOwner,
+      repoName: repo.repo,
+      repoOwner: repo.owner,
+      githubApiBaseUrlV3: context.apiUrl,
+      githubApiBaseUrlV4: context.graphqlUrl,
+    },
     exitCodeOnFailure: false,
   });
 
