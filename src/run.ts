@@ -1,6 +1,11 @@
 /* eslint-disable no-console */
 import { Context } from '@actions/github/lib/context';
-import { BackportResponse, backportRun, UnhandledErrorResult } from 'backport';
+import {
+  BackportResponse,
+  backportRun,
+  ConfigFileOptions,
+  UnhandledErrorResult,
+} from 'backport';
 
 export async function run({
   context,
@@ -46,20 +51,24 @@ export async function run({
     repoForkOwner,
   });
 
+  const options: ConfigFileOptions = {
+    gitHostname: context.serverUrl.replace(/^https{0,1}:\/\//, ''),
+    accessToken: inputs.accessToken,
+    assignees,
+    branchLabelMapping,
+    githubActionRunId: runId,
+    interactive: false,
+    publishStatusCommentOnFailure: true,
+    pullNumber,
+    repoForkOwner,
+    repoName: repo.repo,
+    repoOwner: repo.owner,
+  };
+
+  console.log(options);
+
   const result = await backportRun({
-    options: {
-      gitHostname: context.serverUrl.replace(/^https{0,1}:\/\//, ''),
-      accessToken: inputs.accessToken,
-      assignees,
-      branchLabelMapping,
-      githubActionRunId: runId,
-      interactive: false,
-      publishStatusCommentOnFailure: true,
-      pullNumber,
-      repoForkOwner,
-      repoName: repo.repo,
-      repoOwner: repo.owner,
-    },
+    options,
     exitCodeOnFailure: false,
   });
 
