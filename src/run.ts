@@ -63,6 +63,8 @@ export async function run({
     repoForkOwner,
     repoName: repo.repo,
     repoOwner: repo.owner,
+    githubApiBaseUrlV3: context.apiUrl,
+    githubApiBaseUrlV4: context.graphqlUrl,
   };
 
   console.log(options);
