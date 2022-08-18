@@ -23,6 +23,7 @@ describe('run', () => {
             user: { login: 'sqren' },
           },
         },
+        serverUrl: 'https://github.com',
       } as unknown as Context,
     });
 
@@ -40,6 +41,8 @@ describe('run', () => {
         repoForkOwner: 'elastic',
         repoName: 'kibana',
         repoOwner: 'elastic',
+        gitHostname: 'github.com',
+        githubActionRunId: undefined,
       },
     });
   });

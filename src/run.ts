@@ -48,6 +48,7 @@ export async function run({
 
   const result = await backportRun({
     options: {
+      gitHostname: context.serverUrl.replace(/^https{0,1}:\/\//, ''),
       accessToken: inputs.accessToken,
       assignees,
       branchLabelMapping,
