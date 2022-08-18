@@ -33,6 +33,12 @@ export async function run({
   const assignees = [pullRequest.user.login];
 
   console.log({
+    apiUrl: context.apiUrl,
+    graphqlUrl: context.graphqlUrl,
+    serverUrl: context.serverUrl,
+  });
+
+  console.log({
     assignees,
     branchLabelMapping,
     pullNumber,
