@@ -43,6 +43,8 @@ export async function run({
       ? requestedReviewers.map((reviewer) => reviewer.login)
       : [];
 
+  core.info(JSON.stringify(Object.keys(pullRequest)));
+
   core.info(
     JSON.stringify({
       assignees,
