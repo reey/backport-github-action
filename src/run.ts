@@ -45,6 +45,10 @@ export async function run({
 
   core.info(JSON.stringify(Object.keys(pullRequest)));
 
+  core.info(JSON.stringify(pullRequest.review_comments));
+
+  core.info(JSON.stringify(pullRequest));
+
   core.info(
     JSON.stringify({
       assignees,
